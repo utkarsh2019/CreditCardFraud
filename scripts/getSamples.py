@@ -14,8 +14,7 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv, 'hwi:o:n:f:', [])
     except getopt.GetoptError:
-        print 'getSamples.py -i <inputFile>'
-        print '[getSamples.py -h] for help'
+        print 'getSamples.py -h'
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
