@@ -10,11 +10,15 @@ import cvxopt as co
 def run(X,y):
     H = np.identity(X.shape[1])
     f = np.zeros((X.shape[1],1))
-    A = np.zeros((X.shape[0],X.shape[1]))
-    for i in range(X.shape[0]):
-        for j in range(X.shape[1]):
-            A[i][j] = -y[i]*X[i][j]
-    b = np.ones((X.shape[0],1))
+    A = -y*X
+#     A = np.zeros((X.shape[0],X.shape[1]))
+#     for i in range(X.shape[0]):
+#         for j in range(X.shape[1]):
+#             A[i][j] = -y[i]*X[i][j]
+#     if (A.any() != A1.any()):
+#         print("No")
+#         return
+    b = np.zeros((X.shape[0],1))
     b[:] = -1
     theta = np.array(co.solvers.qp(co.matrix(H,tc='d'),co.matrix(f,tc='d'),co.matrix(A,tc='d'),co.matrix(b,tc='d'))['x'])
     return theta
