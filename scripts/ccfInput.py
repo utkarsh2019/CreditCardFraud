@@ -16,7 +16,7 @@ def getDataFrom(filepath, rowsToSelect=defaultRows, n=1000, withHeaders=True):
 
     Returns
     -------
-    npData - numpy array of the select columsn of data read from the file
+    npData - numpy array of the select columns of data read from the file
 
     Examples
     --------
