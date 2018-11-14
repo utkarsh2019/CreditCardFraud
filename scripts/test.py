@@ -14,7 +14,7 @@ import getData as gd
 def test_Pred(theta,X,y):
     Z = np.zeros((X.shape[0],1))
     count = 0
-    for i in range(10):
+    for i in range(250):
         Z[i,0] = pred.run(theta,np.transpose(np.array([X[i,:]])))
         if y[i,0] == Z[i,0]:
             count += 1

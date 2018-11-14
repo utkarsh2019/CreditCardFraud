@@ -8,5 +8,5 @@ def run(theta,x):
     if np.transpose(theta).dot(x) > 0:
         label = 1
     else:
-        label = 0
+        label = -1
     return label
