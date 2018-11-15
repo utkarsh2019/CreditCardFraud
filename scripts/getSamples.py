@@ -93,7 +93,5 @@ def main(argv):
     outfile.flush()
     outfile.close()
 
-
-
 if __name__ == "__main__":
    main(sys.argv[1:])
