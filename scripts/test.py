@@ -40,15 +40,19 @@ def test_MF(filename):
     X,y = gd.getXY(filename)
     n = X.shape[0]
     S,thetaS = mf.run(F,X,y)
-    # print S
+    print("S", S)
     z = np.zeros((n,1))
-    for i in xrange(n):
+    for i in range(n):
         z[i,0] = np.transpose(thetaS).dot(X[i,S])
+
+    z[z <= 0] = -1
+    z[z > 0 ] = 1
+
     #for i in range(n):
     #    print abs(y[i,0] - z[i,0])
     # plt = matplotlib.pyplot
-    # plt.plot(y,"b")
-    # plt.plot(z)
+    # plt.plot(y,"b+")
+    # plt.plot(z, "gx")
     print("flag1")
     # plt.show()
     return S
