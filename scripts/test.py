@@ -1,8 +1,15 @@
 import sys
+import numpy as np
+import matplotlib
+# matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
 import linpred as pred
 import linprimalsvm as svm
-import numpy as np
+import myopicfitting as mf
 import getData as gd
+
+F = 10
 
 def percentage(part, whole):
   return 100 * float(part)/float(whole)
@@ -26,8 +33,25 @@ def test_Svm(filename):
     theta = svm.run(X1,y1)
     test_Pred(theta,X2,y2)
 
+def test_MF(filename):
+    X,y = gd.getXY(filename)
+    n = X.shape[0]
+    S,thetaS = mf.run(F,X,y)
+    # print S
+    z = np.zeros((n,1))
+    for i in xrange(n):
+        z[i,0] = np.transpose(thetaS).dot(X[i,S])
+    #for i in range(n):
+    #    print abs(y[i,0] - z[i,0])
+    # plt = matplotlib.pyplot
+    plt.plot(y,"b")
+    plt.plot(z)
+    print("flag1")
+    plt.show()
+
 if __name__ == "__main__":
     if (len(sys.argv) != 2):
         print("Usage: python test.py <input_file>")
     else:
-        test_Svm(sys.argv[1])
+        test_MF(sys.argv[1])
+        # test_Svm(sys.argv[1])
