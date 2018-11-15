@@ -1,5 +1,6 @@
 import numpy as np
 import math
+
 # The value of the kernel function that takes two vectors (not feature vectors
 #    with phi)
 # Input: numpy vector x of d rows, 1 column
@@ -10,7 +11,7 @@ import math
 #     v = K.run( np.array([[1], [4], [3]]) , np.array([[2], [7], [-1]]) )
 
 # the beta for the radial basis kernel
-BETA = 2
+BETA = 1
 
 
 def run(x, z):
