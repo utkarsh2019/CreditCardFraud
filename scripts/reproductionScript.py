@@ -23,27 +23,26 @@ FILE_NAME = "../dataset/1000.csv"
 
 if __name__ == "__main__":
     
-#    # read in the data set
-#    dataFrame1 = pd.read_csv(FILE_NAME)
-#
-#    # form X and y
-#
-#    X = dataFrame1[dataFrame1.columns[:-1]]
-#
-#    # getting numpy outlook
-#    X = X.values
-#
-#    y = dataFrame1["Class"]
-#
-#    # getting numpy outlook
-#    y = y.values
-#
-#    # reshaping
-#    y = y.reshape((y.shape[0],1))
+    # read in the data set
+    dataFrame1 = pd.read_csv(FILE_NAME)
 
-#    y[y == 0] = -1
+    # form X and y
+
+    X = dataFrame1[dataFrame1.columns[:-1]]
+
+    # getting numpy outlook
+    X = X.values
+
+    y = dataFrame1["Class"]
+
+    # getting numpy outlook
+    y = y.values
+
+    # reshaping
+    y = y.reshape((y.shape[0],1))
+
+    y[y == 0] = -1
     
-    X, y = getData.getXY(FILE_NAME)
     # let us decide if we want to analyze it a bit
     
     
@@ -64,6 +63,13 @@ if __name__ == "__main__":
         # get projection
         projection = pcaproj.run(X, mu, Z)
         myPlotHelp.plot2DData(X, y)
+        plt.show()
+        
+        # plot weights vs samples
+        n, d = X.shape
+        sampleIndexes = np.arange(1, n+1)
+        alpha = kerdualsvm.run(X, y)
+        plt.plot(sampleIndexes, alpha, "ko")
         plt.show()
         
     # lets measure on the whole dataset
