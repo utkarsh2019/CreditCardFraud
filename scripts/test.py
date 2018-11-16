@@ -1,13 +1,18 @@
 import sys
 import numpy as np
 
+import matplotlib
+#matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 from sklearn import svm
+
 
 import linpred as pred
 import linprimalsvm as own_svm
 import myopicfitting as mf
 import getData as gd
 import kfoldcv
+
 
 F = 15
 FOLDS = 5
