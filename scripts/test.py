@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 import linpred as pred
@@ -9,7 +9,7 @@ import linprimalsvm as svm
 import myopicfitting as mf
 import getData as gd
 
-F = 16
+F = 3
 
 def percentage(part, whole):
   return 100 * float(part)/float(whole)
@@ -62,4 +62,4 @@ if __name__ == "__main__":
         print("Usage: python test.py <input_file>")
     else:
         S = test_MF(sys.argv[1])
-        test_Svm(sys.argv[1], S)
+        #test_Svm(sys.argv[1], S)
