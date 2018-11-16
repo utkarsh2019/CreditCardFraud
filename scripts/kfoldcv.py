@@ -1,5 +1,9 @@
 import numpy as np
 
+
+from sklearn import svm
+
+
 import kerdualsvm
 import kerpred
 
@@ -38,8 +42,8 @@ def measurePerformance(alpha, X, y, X1, y1):
 # Output: numpy vector z of k rows, 1 column. Read details below
 
 
-def run(k, X, y):
-    n, d = X.shape
+def run(k, X, y, type):
+    n = X.shape[0]
 
     # this is a list containing all the k subsets. So it is of size k in the
     # once we ready it, in a for loop
@@ -79,9 +83,27 @@ def run(k, X, y):
         yForS.extend(ySets[i + 1:])
         yForS_1 = np.concatenate(yForS)
 
-        alpha = kerdualsvm.run(S, yForS_1)
+        # for dual svm using sklearn
+        if (type == 1):
+            clf = svm.SVC(kernel='linear',C=1,gamma=1)
+            clf.fit(S,yForS_1)
+            count = 0
+            lenS = len(yForT)
+            for j in range(lenS):
+                if yForT[j] == clf.predict([T[j]])[0]:
+                    count += 1
+            z[i] = float(lenS - count)/float(lenS)
+            print(z[i])
 
-        # getting performance measure of test set
-        z[i] = 1 - measurePerformance(alpha, S, yForS_1, T, yForT)
-
+        # for primal svm using sklearn
+        elif(type == 2):
+            clf = svm.LinearSVC(C=1,dual=False)
+            clf.fit(S,yForS_1)
+            count = 0
+            lenS = len(yForT)
+            for j in range(lenS):
+                if yForT[j] == clf.predict([T[j]])[0]:
+                    count += 1
+            z[i] = float(lenS - count)/float(lenS)
+            print(z[i])
     return z
