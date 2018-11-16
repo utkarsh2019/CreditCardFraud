@@ -71,7 +71,7 @@ if __name__ == "__main__":
     performance = kfoldcv.measurePerformance(alpha, X, y, X, y)
     print("performance on whole", performance)
 
-    z = kfoldcv.run(FOLD_SIZE, X, y)
+    z = kfoldcv.run(FOLD_SIZE, X, y, 1)
     print("mean:", z.mean())
     n, d = X.shape
 
