@@ -6,13 +6,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from sklearn import svm
 
-<<<<<<< HEAD
-=======
-
-import linpred as pred
-import linprimalsvm as own_svm
->>>>>>> b26917fb0d5d985fa7521139ba75657faff8aa4f
-import myopicfitting as mf
+import myopicFitting as mf
 import getData as gd
 import kFoldCV
 
@@ -55,11 +49,4 @@ if __name__ == "__main__":
     if (len(sys.argv) != 3):
         print("Usage: python test.py <input_file> <svm_type>")
     else:
-<<<<<<< HEAD
         test_K_Folds_CV(sys.argv[1],sys.argv[2])
-=======
-        # S = test_MF(sys.argv[1])
-        # test_Own_Primal_Svm(sys.argv[1], S)
-        # test_Sklearn_Svm(sys.argv[1])
-        test_K_Folds_CV(sys.argv[1])
->>>>>>> b26917fb0d5d985fa7521139ba75657faff8aa4f
