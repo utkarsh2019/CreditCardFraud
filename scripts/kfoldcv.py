@@ -75,7 +75,28 @@ def processAll(X, y, type):
 # Output: numpy vector z of k rows, 1 column. Read details below
 
 
-def run(k, X, y, type):
+def run(k, X, y, type, **kwargs):
+    """
+    Input:
+        folds:
+            The value of k, the number of folds in k-fold cross validation.
+        X:	
+            The samples, as an n x d numpy array
+        y:
+            The labels in parallel with the samples above
+        Keyword arguments, **kwargs:
+            C: 
+                The slack variable for both primal and dual svm
+            type: 
+                A python string with value as primal or dual for the appropriate model
+            kernel: 
+                A string representing valid kernel names which are acceptable as kernel names for the function svm.LinearSVC
+            gamma: 
+                Read svm.LinearSVC for details. For the radial basis kernel, it is the hyperparameter to be tuned
+    Return:
+        The function would return a matrix z of dimensions k x 1, containing the error percentage (%) for each of the k trials.
+
+    """
     # check if k is less than or equal to 1
     if (k < 1):
         print("Please provide valid folds")
@@ -124,9 +145,9 @@ def run(k, X, y, type):
         yForS_1 = np.concatenate(yForS)
 
         # for dual svm using sklearn
-        if (type == 1):
-            clf = svm.SVC(kernel="rbf",gamma=0.0000001,C=100000)
-            clf.fit(S,yForS_1)
+        if type == "primal":
+            clf = svm.LinearSVC(C=kwargs["C"], dual=False)
+            clf.fit(S, yForS_1)
             count = 0
             lenS = len(yForT)
             for j in range(lenS):
@@ -136,9 +157,13 @@ def run(k, X, y, type):
             print(z[i])
 
         # for primal svm using sklearn
-        elif(type == 2):
-            clf = svm.LinearSVC(C=10,dual=False)
-            clf.fit(S,yForS_1)
+        elif type == "dual":
+            clf = svm.SVC(
+                        kernel=kwargs["kernel"],
+                        gamma=kwargs["gamma"],
+                        C=kwargs["C"])
+
+            clf.fit(S, yForS_1)
             count = 0
             lenS = len(yForT)
             for j in range(lenS):
