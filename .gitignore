@@ -3,3 +3,5 @@ creditcard.csv
 *.pyc
 .spyproject
 .DS_STORE
+
+fixOnes.py

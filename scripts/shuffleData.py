@@ -21,7 +21,9 @@ def run():
 
         for i in allData:
             if (i[30] == '0'):
-                i[30] = '-1'
+                i[30] = '1' # Non-Fraudulent
+            elif (i[30] == '1'):
+                i[30] = '-1' # Fraudulent
 
         with open(output[c], "wb") as f: 
             writer = csv.writer(f)
