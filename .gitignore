@@ -1,3 +1,6 @@
 creditcard.csv
 .vscode
 *.pyc
+.spyproject
+.DS_STORE
+
