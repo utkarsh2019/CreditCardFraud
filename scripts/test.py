@@ -12,7 +12,7 @@ import kFoldCV
 
 
 F = 15
-FOLDS = 1
+FOLDS = 5
 
 def test_MF(filename):
     X,y = gd.getXY(filename)

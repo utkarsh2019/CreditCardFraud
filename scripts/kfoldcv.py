@@ -125,7 +125,7 @@ def run(k, X, y, type):
 
         # for dual svm using sklearn
         if (type == 1):
-            clf = svm.SVC(kernel="rbf",gamma=0.0000001,C=100000)
+            clf = svm.SVC(kernel="rbf",gamma=0.0000001,C=0.1)
             clf.fit(S,yForS_1)
             count = 0
             lenS = len(yForT)
