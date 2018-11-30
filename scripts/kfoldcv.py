@@ -145,15 +145,9 @@ def run(k, X, y, type, **kwargs):
         yForS_1 = np.concatenate(yForS)
 
         # for dual svm using sklearn
-<<<<<<< HEAD
-        if (type == 1):
-            clf = svm.SVC(kernel="rbf",gamma=0.0000001,C=0.1)
-            clf.fit(S,yForS_1)
-=======
         if type == "primal":
             clf = svm.LinearSVC(C=kwargs["C"], dual=False)
             clf.fit(S, yForS_1)
->>>>>>> 3e7acd9b8423ef5a6ebe5e75abe1e56d329572e4
             count = 0
             lenS = len(yForT)
             for j in range(lenS):
