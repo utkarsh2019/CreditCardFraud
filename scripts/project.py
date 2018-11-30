@@ -24,6 +24,25 @@ C = 0.1
 GAMMA = 0.01
 
 
+data = None
+
+def run():
+    X, y = gd.getXY()
+    
+    # print details about X
+    print(type(X))
+    print(X.shape)
+    print()
+    
+    # print details about y
+    print(type(y))
+    print(y.shape)
+    print()
+    
+    
+
+
+
 def test_MF(filename):
     X,y = gd.getXY(filename)
     n = X.shape[0]
