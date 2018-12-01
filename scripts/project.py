@@ -21,7 +21,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
 
-import getData
 import kfoldcv
 import pcalearn
 import pcaproj
@@ -92,7 +91,7 @@ def test_non_linear_svm(X, y, C, gamma, folds):
     print("stdev:", np.std(z))
 
 
-def test_K_Folds_CV(X, y, k, C, gamma=None, algorithmType):
+def test_K_Folds_CV(X, y, k, algorithmType, C, gamma=None):
     n = X.shape[0]
     y = y.reshape(n,)
     if algorithmType == "dual":

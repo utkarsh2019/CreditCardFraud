@@ -1,9 +1,6 @@
 import numpy as np
 from sklearn import svm
 
-import myopicfitting
-import linpred
-
 # Calculate and return true positive, true negative, false positive, and false negative
 def perf_measure(y_actual, y_hat):
     TP = 0
