@@ -16,9 +16,9 @@ def perf_measure(y_actual, y_hat):
            TP += 1
         if y_hat[i]==1 and y_actual[i]!=y_hat[i]:
            FP += 1
-        if y_actual[i]==y_hat[i]==0:
+        if y_actual[i]==y_hat[i]==-1:
            TN += 1
-        if y_hat[i]==0 and y_actual[i]!=y_hat[i]:
+        if y_hat[i]==-1 and y_actual[i]!=y_hat[i]:
            FN += 1
 
     return(TP, FP, TN, FN)
