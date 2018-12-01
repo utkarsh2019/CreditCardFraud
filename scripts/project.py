@@ -130,9 +130,9 @@ def calc_stats(type, X,y, C, gamma=None):
     (TP, FP, TN, FN) = kfoldcv.perf_measure(y, yhat)
 
     # calculate accuracy, precision, sensitivty...
-    accuracy = (TP + TN)/(TP+FP+FN+TN)
-    precision = TP/(TP+FP)
-    recall = TP/(TP+FN)
+    accuracy = (TP + TN)*1.0/(TP+FP+FN+TN)
+    precision = (TP*1.0)/(TP+FP)
+    recall = (TP*1.0)/(TP+FN)
     f1_score = 2*(recall * precision) / (recall + precision)
 
     # return results

@@ -1,3 +1,12 @@
+'''
+Generates subset files from the main data set creditcard.csv.
+TO RUN:
+Run from the command line with "python2.7 getSamples.py -h"
+
+Since the original data set was too large to work with, 
+we needed to create subsets of the dataset to do our training
+and validation.  This file creates those subsets.
+'''
 import sys, getopt, random
 
 numberOfDataPoints = 284807 # Total number of data points

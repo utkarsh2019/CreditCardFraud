@@ -1,3 +1,18 @@
+'''
+After generating the subsets of the data, we needed to perform
+transformations on the labels of the data points.  The original
+data set had values of 1 for fraudulent transactions and 0 for
+regular transactions.  We transformed this into -1s for fraudulent
+transactions and +1s for non-fraudulent transactions.
+
+We also shuffled the data points so that all of the -1s weren't
+consecutive and all of the 1s weren't consecutive.  This mixes
+them to avoid something weird happening with our training.
+
+TO RUN:
+Alter the input and output filename arrays with the subset files.
+(Line 20, 21)
+'''
 import csv
 from random import shuffle
 
