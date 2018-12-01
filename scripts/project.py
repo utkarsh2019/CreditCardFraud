@@ -1,3 +1,5 @@
+# allow the code to be run in Python 2
+from __future__ import print_function
 import sys
 import numpy as np
 
@@ -40,7 +42,50 @@ def run():
     print()
     
     
+def test_linear_svm(X, y, C, folds):
+    """measure performance of linear svm
+    
+    Input:
+        X:
+            input data in n rows and d columns denoting n samples and d
+            features. It is a numpy array
+        y:
+            the labels in n x 1 numpy array
+        C:
+            The slack variable to adjust in linear svm. It is a floating point
+            value
+        folds:
+            the number of folds in k-folf cross validation. It is an integer
+    """
+    # error results stored in z, containing error for each fold
+    z = kfoldcv.run(folds, X, y, "primal", C=C)
+    print("error:", np.mean(z))
+    print("stdev:", np.std(z))
 
+
+def test_non_linear_svm(X, y, C, gamma, folds):
+    """measure performance of dual svm
+    
+    Input:
+        X:
+            input data in n rows and d columns denoting n samples and d
+            features. It is a numpy array
+        y:
+            the labels in n x 1 numpy array
+        C:
+            The slack variable to adjust in linear svm. It is a floating point
+            value
+        gamma:
+            the gamma for the radial basis kernel that we are using. It is a
+            floating point value
+        folds:
+            the number of folds in k-folf cross validation. It is an integer
+    """
+    # error results stored in z, containing error for each fold
+    z = kfoldcv.run(folds, X, y, "dual", C=C, gamma=gamma)
+    print("error:", np.mean(z))
+    print("stdev:", np.std(z))
+    
 
 
 def test_MF(filename):

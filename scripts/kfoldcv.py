@@ -1,11 +1,5 @@
 import numpy as np
-
-
 from sklearn import svm
-
-
-import kerdualsvm
-import kerpred
 
 # This Function may be obsolete now
 
@@ -36,7 +30,6 @@ import kerpred
 #             nCorrect += 1
 
 #     return nCorrect * 1.0 / n
-
 
 def processAll(X, y, type):
 
@@ -75,26 +68,31 @@ def processAll(X, y, type):
 # Output: numpy vector z of k rows, 1 column. Read details below
 
 
-def run(k, X, y, type, **kwargs):
+def run(k, X, y, algorithmType, **kwargs):
     """
+    Perform k fold cross validation and return an array representing the
+    results
+
     Input:
         folds:
             The value of k, the number of folds in k-fold cross validation.
-        X:	
+        X:
             The samples, as an n x d numpy array
         y:
             The labels in parallel with the samples above
         Keyword arguments, **kwargs:
-            C: 
+            C:
                 The slack variable for both primal and dual svm
-            type: 
-                A python string with value as primal or dual for the appropriate model
-            kernel: 
-                A string representing valid kernel names which are acceptable as kernel names for the function svm.LinearSVC
-            gamma: 
-                Read svm.LinearSVC for details. For the radial basis kernel, it is the hyperparameter to be tuned
+            type:
+                A python string with value as primal or dual for the
+                appropriate model. We are using the radial basis kernel
+                in the case of the dual mode
+            gamma:
+                Read svm.LinearSVC for details. For the radial basis kernel, it
+                is the hyperparameter to be tuned
     Return:
-        The function would return a matrix z of dimensions k x 1, containing the error percentage (%) for each of the k trials.
+        The function would return a matrix z of dimensions k x 1, containing
+        the error percentage (%) for each of the k trials.
 
     """
     # check if k is less than or equal to 1
@@ -144,31 +142,25 @@ def run(k, X, y, type, **kwargs):
         yForS.extend(ySets[i + 1:])
         yForS_1 = np.concatenate(yForS)
 
+        yForT = yForT.reshape( (yForT.shape[0],) )
+        yS = yForS_1.reshape( (yForS_1.shape[0],) )
         # for dual svm using sklearn
-        if type == "primal":
+        if algorithmType == "primal":
+            # clf is the classifier object for performing learning, testing and
+            # more
             clf = svm.LinearSVC(C=kwargs["C"], dual=False)
-            clf.fit(S, yForS_1)
-            count = 0
-            lenS = len(yForT)
-            for j in range(lenS):
-                if yForT[j] == clf.predict([T[j]])[0]:
-                    count += 1
-            z[i] = 100*float(lenS - count)/float(lenS)
-            print(z[i])
+            clf.fit(S, yS)
+            # get the error on the set in T
+            # (see documentation for details)
+            z[i] = 1 - clf.score(T, yForT)
 
         # for primal svm using sklearn
-        elif type == "dual":
+        elif algorithmType == "dual":
             clf = svm.SVC(
-                        kernel=kwargs["kernel"],
+                        kernel="rbf",
                         gamma=kwargs["gamma"],
                         C=kwargs["C"])
 
-            clf.fit(S, yForS_1)
-            count = 0
-            lenS = len(yForT)
-            for j in range(lenS):
-                if yForT[j] == clf.predict([T[j]])[0]:
-                    count += 1
-            z[i] = 100*float(lenS - count)/float(lenS)
-            print(z[i])
+            clf.fit(S, yS)
+            z[i] = 1 - clf.score(T, yForT)
     return z
