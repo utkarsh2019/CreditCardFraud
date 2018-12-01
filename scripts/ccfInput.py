@@ -1,3 +1,10 @@
+'''
+Do Not Use.
+
+Unused for our project.  Was to be used to get a set of chosen columns
+from the data set in case we only wanted to use those columns.
+'''
+
 import numpy as np
 
 numberOfColumns = 31

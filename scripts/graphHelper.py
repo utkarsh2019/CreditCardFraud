@@ -1,3 +1,13 @@
+'''
+Helper file to visualize two features.
+
+TO RUN:
+Change the input file to your shuffled sample file (line 25, 26).
+Change the lines like 
+'xvalsNormal += [X[i][S[---]]]' (Line 35, 36, 38, 39)
+and replace the '---' with a number of a feature, ordered by relative importance.
+Then run from the command line with 'python2.7 graphHelper.py'
+'''
 import sys
 import numpy as np
 import matplotlib
