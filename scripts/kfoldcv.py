@@ -25,7 +25,6 @@ def perf_measure(y_actual, y_hat):
 
 
 def processAll(X, y, type):
-
     z = np.zeros(shape=(1, 1))
 
     # for dual svm using sklearn

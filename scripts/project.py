@@ -159,7 +159,6 @@ def test_non_linear_svm(X, y, C, gamma, folds):
     print("stdev:", np.std(z))
     
 
-
 def test_MF(filename):
     X,y = gd.getXY(filename)
     n = X.shape[0]
@@ -206,6 +205,29 @@ def test_K_Folds_CV(filename,type):
         print("Wrong SVM type")
         return
     print("Error: ",(z.mean()))
+
+def calc_stats(type, X,y, C, gamma=None):
+    # learn
+    clf = None
+    if(type == "primal"):
+        clf = svm.LinearSVC(C=10,dual=False)
+    else:
+        clf = svm.SVC(kernel="rbf",gamma=gamma,C=C)
+    clf.fit(X, y)
+    yhat = clf.predict(X)
+
+    # perf_measure function
+    (TP, FP, TN, FN) = kfoldcv.perf_measure(y, yhat)
+
+    # calculate accuracy, precision, sensitivty...
+    accuracy = (TP + TN)/(TP+FP+FN+TN)
+    precision = TP/(TP+FP)
+    recall = TP/(TP+FN)
+    f1_score = 2*(recall * precision) / (recall + precision)
+
+    # return results
+    return "Accuracy: ", accuracy, "\nPrecision: ", precision, "\nRecall: ", recall, "\nF1 Score: ", f1_score
+
 
 if __name__ == "__main__":
     if (len(sys.argv) != 3):
