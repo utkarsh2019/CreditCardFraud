@@ -29,8 +29,8 @@ def plotMyopicForwardFitting():
             yvalsFraud += [X[i][S[2]]]
     
     # Plot scatter plots
-    matplotlib.pyplot.scatter(xvalsFraud, yvalsFraud, color="red", marker='_', s=30, alpha=1.0)
     matplotlib.pyplot.scatter(xvalsNormal, yvalsNormal, color = "green", marker = '+', s=30, alpha=1.0)
+    matplotlib.pyplot.scatter(xvalsFraud, yvalsFraud, color="red", marker='_', s=30, alpha=1.0)
     # Show the plot
     matplotlib.pyplot.show()
 
