@@ -210,7 +210,7 @@ def calc_stats(type, X,y, C, gamma=None):
     # learn
     clf = None
     if(type == "primal"):
-        clf = svm.LinearSVC(C=10,dual=False)
+        clf = svm.LinearSVC(C=C,dual=False)
     else:
         clf = svm.SVC(kernel="rbf",gamma=gamma,C=C)
     clf.fit(X, y)
