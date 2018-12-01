@@ -1,3 +1,7 @@
+"""
+This file is for using a function for projecting the a set of real data into
+PCA space
+"""
 import numpy as np
 # Input:
 #        number of features F

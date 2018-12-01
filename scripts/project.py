@@ -1,3 +1,20 @@
+"""This is the file with top level functions that can be used in conjunction
+with the report
+
+Some functions are not directly used in learning, but help in other things,
+such as plotting of graphs. They can be executed independently and are
+referenced in the report
+
+To run these functions, perform the following steps
+1. run a python console (by typing Python or otherwise)
+2. Import project from this package (this file)
+3. Execute functions
+
+Enjoy!
+
+"""
+
+
 # allow the code to be run in Python 2
 from __future__ import print_function
 import sys
@@ -10,6 +27,9 @@ from sklearn import svm
 import myopicfitting as mf
 import getData as gd
 import kfoldcv
+import pcalearn
+import pcaproj
+import myPlotHelp
 
 # hyperparameters
 
@@ -25,8 +45,9 @@ C = 0.1
 # gamma for radial basis kernel or otherwiae
 GAMMA = 0.01
 
+X = None
+y = None
 
-data = None
 
 def run():
     X, y = gd.getXY()
@@ -40,8 +61,20 @@ def run():
     print(type(y))
     print(y.shape)
     print()
+
+
+def makePCAGraph(X, y):
+    mu, Z = pcalearn.run(F=2, X=X)
+    projSamples = pcaproj.run(X, mu, Z)
+
+    # projSamples, the projected samples, are now in n x 2 matrix with their
+    # projection values for each vector in each row's two columns
     
-    
+    # TODO: check if this labels match usage in final report
+    myPlotHelp.plot2DData(projSamples, y,
+                          {-1: "fraudulent",
+                           1: "non-fraudulent"})
+
 def test_linear_svm(X, y, C, folds):
     """measure performance of linear svm
     
