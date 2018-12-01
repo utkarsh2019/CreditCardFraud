@@ -226,7 +226,7 @@ def calc_stats(type, X,y, C, gamma=None):
     f1_score = 2*(recall * precision) / (recall + precision)
 
     # return results
-    return "Accuracy: ", accuracy, "\nPrecision: ", precision, "\nRecall: ", recall, "\nF1 Score: ", f1_score
+    print("TP: ", TP, "\nFP: ", FP, "\nTN: ", TN, "\nFN: ", FN, "\nAccuracy: ", accuracy, "\nPrecision: ", precision, "\nRecall: ", recall, "\nF1 Score: ", f1_score)
 
 
 if __name__ == "__main__":
