@@ -1,11 +1,13 @@
 import numpy as np
-
-
 from sklearn import svm
-
-
 import kerdualsvm
 import kerpred
+
+#performance meaasures
+TP = 0
+FP = 0
+TN = 0
+FN = 0
 
 # This Function may be obsolete now
 
@@ -37,6 +39,18 @@ import kerpred
 
 #     return nCorrect * 1.0 / n
 
+# Calculate and return true positive, true negative, false positive, and false negative
+def perf_measure(y_actual, y_hat):
+    if y_actual[i]==y_hat[i]==1:
+        TP += 1
+    if y_hat[i]==1 and y_actual[i]!=y_hat[i]:
+        FP += 1
+    if y_actual[i]==y_hat[i]==0:
+        TN += 1
+    if y_hat[i]==0 and y_actual[i]!=y_hat[i]:
+        FN += 1
+
+return(TP, FP, TN, FN)
 
 def processAll(X, y, type):
 
