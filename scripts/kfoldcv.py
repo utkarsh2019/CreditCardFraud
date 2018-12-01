@@ -1,6 +1,8 @@
 import numpy as np
 from sklearn import svm
 
+import myopicfitting
+import linpred
 # This Function may be obsolete now
 
 
@@ -164,3 +166,88 @@ def run(k, X, y, algorithmType, **kwargs):
             clf.fit(S, yS)
             z[i] = 1 - clf.score(T, yForT)
     return z
+
+
+def runForFeatureSelection(F, X, y, k):
+    """
+    This method will do feature selection on the k - 1 folds each time.
+    
+    Input:
+        Same as above run function except F
+        F:
+            The number of features that you want to select
+    Output:
+        Same as above run function
+    
+    The myopic fitting that we use for feature selection is such that it
+    returns the theta (the feature weights in a linear svm). 
+    
+    So we do not have to learn anything after that
+    """
+    # check if k is less than or equal to 1
+    if (k < 1):
+        print("Please provide valid folds")
+        return []
+    elif (k == 1):
+        return processAll(X, y, type)
+
+    n = X.shape[0]
+
+    # this is a list containing all the k subsets. So it is of size k in the
+    # once we ready it, in a for loop
+    allSets = []
+
+    # there is a parallel list for labels
+    ySets = []
+    # this loop is not the main loop to iterate and fill z. It is just to make
+    # the sets
+    for i in range(k):
+        # we use float to perform normal division (not integer division)
+        lower = int(float(n) * i / float(k))
+        upper = int(float(n) * (i+1) / float(k)) - 1
+        subsetForX = X[lower:upper+1, ]
+        subsetForY = y[lower:upper+1, ]
+        allSets.append(subsetForX)
+        ySets.append(subsetForY)
+
+    # z contains the resulting mean square error for each set according to k
+    # fold cross validation
+    z = np.zeros(shape=(k, 1))
+
+    # the main loop matching the pseudo code given in the question
+    for i in range(k):
+        T = allSets[i]
+        yForT = ySets[i]
+
+        # we try and add all rows that are not in T, into setForS
+        setForS = allSets[0:i]
+        setForS.extend(allSets[i + 1:])
+
+        # we convert rows or sets of rows, into a common array S
+        S = np.concatenate(setForS)
+
+        # parralel conversion for making a set of corresponding labels
+        yForS = ySets[0:i]
+        yForS.extend(ySets[i + 1:])
+        yForS_1 = np.concatenate(yForS)
+
+        # pick features
+        featureSet, theta = myopicfitting.run(F, S, yForS_1)
+
+        # pick the same features from the fold we left out, T
+        T = T[:, featureSet]
+
+        # compute the error (bet 0 and 1)
+        errorCount = 0
+        for row in range(len(T)):
+            x = T[row]
+            x = x.reshape((F, 1))
+
+            if y[row] != linpred.run(theta, x):
+                errorCount += 1
+
+        error = errorCount * 1.0 / len(T)
+        z[i] = error
+        
+    return z
+    

@@ -63,7 +63,44 @@ def run():
     print()
 
 
+def makeFeatureNumberGraph(X, y, rangeF, k):
+    """
+    This graph function visualizes the number of features vs the error
+
+    Input:
+        X:
+            The samples in shape samples x features
+
+        y:
+            The labes in no. samples x 1 form
+
+        rangeF = (startF, stopF):
+            F denotes the feature we want to have. rangeF is the range of
+            values of F ( the x range in the graph) for which we want to have
+            errors. The last value is exclusive (stopF)!
+
+        k: folds in k fold cross validation
+    """
+    # get a python range object
+    rangeF = range(*rangeF)
+    xValues = np.arange(rangeF.start, rangeF.stop)
+    yValues = []
+    for F in rangeF:
+        z = kfoldcv.runForFeatureSelection(F, X, y, k)
+        meanError = np.mean(z)
+        yValues.append(meanError)
+
+    plt.plot(xValues, yValues, "b-")
+    plt.xlabel("F")
+    plt.ylabel("error")
+    plt.show()
+
+
 def makePCAGraph(X, y):
+    """
+    This function is to be used for making 2 D graph with PCA
+    This is referenced in the report
+    """
     mu, Z = pcalearn.run(F=2, X=X)
     projSamples = pcaproj.run(X, mu, Z)
 
@@ -74,6 +111,8 @@ def makePCAGraph(X, y):
     myPlotHelp.plot2DData(projSamples, y,
                           {-1: "fraudulent",
                            1: "non-fraudulent"})
+    plt.xlabel("PCA vector 1 projection")
+    plt.ylabel("PCA vector 2 projection")
 
 def test_linear_svm(X, y, C, folds):
     """measure performance of linear svm
