@@ -1,7 +1,6 @@
 import sys
 import numpy as np
 
-#matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn import svm
 
@@ -11,18 +10,17 @@ import kfoldcv
 
 # hyperparameters
 
-# number o features for myopic fitting (feature selection)
+# number of features for myopic fitting (feature selection)
 F = 15
 
 # number of folds (k) for the k fold cross validation
 FOLDS = 5
 
 # slack penalty for svm
-C = 0.1
+C = 0.01
 
 # gamma for radial basis kernel or otherwiae
-GAMMA = 0.01
-
+GAMMA = 0.000000001
 
 def test_MF(filename):
     X,y = gd.getXY(filename)
@@ -42,7 +40,7 @@ def test_MF(filename):
     # plt = matplotlib.pyplot
     # plt.plot(y,"b+")
     # plt.plot(z, "gx")
-    print("flag1")
+    # print("flag1")
     # plt.show()
     return S
 
@@ -91,4 +89,4 @@ if __name__ == "__main__":
         print("gamma", GAMMA)
         
         test_K_Folds_CV(sys.argv[1],sys.argv[2])
-        test_MF(sys.argv[1])
+        # test_MF(sys.argv[1])
