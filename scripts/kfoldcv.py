@@ -21,36 +21,6 @@ def perf_measure(y_actual, y_hat):
     return(TP, FP, TN, FN)
 
 
-def processAll(X, y, type):
-    z = np.zeros(shape=(1, 1))
-
-    # for dual svm using sklearn
-    if (type == 1):
-        # clf = svm.SVC(kernel='linear',C=1,gamma=1)
-        clf = svm.SVC(kernel="rbf", gamma=0.0000001, C=100000)
-        clf.fit(X, y)
-        count = 0
-        lenY = len(y)
-        for j in range(lenY):
-            if y[j] == clf.predict([X[j]])[0]:
-                count += 1
-        z[0] = 100*float(lenY - count)/float(lenY)
-        print(z[0])
-
-    # for primal svm using sklearn
-    elif(type == 2):
-        clf = svm.LinearSVC(C=10, dual=False)
-        clf.fit(X, y)
-        count = 0
-        lenY = len(y)
-        for j in range(lenY):
-            if y[j] == clf.predict([X[j]])[0]:
-                count += 1
-        z[0] = 100*float(lenY - count)/float(lenY)
-        print(z[0])
-    return z
-
-
 def run(k, X, y, algorithmType, **kwargs):
     """
     Perform k fold cross validation and return an array representing the
@@ -84,7 +54,6 @@ def run(k, X, y, algorithmType, **kwargs):
         the error percentage (%) for each of the k trials.
 
     """
-    # TODO: processAll necc?
 
     n = X.shape[0]
 

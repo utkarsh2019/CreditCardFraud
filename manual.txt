@@ -1,15 +1,43 @@
-We require the following additional libraries
+Setup
+_________________________________________________________________________________
+
+We require the following additional libraries. Download it using the instruction provided - 
 1. matplotlib
+
+pip install matplotlib
+
 2. sklearn
 
-Basic execution flow is as follows:
+pip install scikit-learn
+
+3. pandas
+
+pip install pandas
+
+4. numpy
+
+pip install numpy
+
+Execution Flow and Commands
+_________________________________________________________________________________
 Start Python in interactive mode (IPython or terminal). We tested with a terminal, 
 running python command from the folder /scripts/
 
-then do the following in the python console
+Then do the following in the python console
+
 import project
 import getData
 X, y = getData(<filename>)
 
 # use high level functions in the project.py file (project module)
+# List of high level functions are: 
+#   makePCAGraph(X, y)
+#   test_linear_svm(X, y, C, folds)
+#   test_non_linear_svm(X, y, C, gamma, folds)
+#   training_testing(X, y, testSetX, testSetY, algorithmType, C, gamma)
+#   test_K_Folds_CV(X, y, k, algorithmType, C, gamma)
+#   calc_stats(X, y, algorithmType, C, gamma)
 
+
+The maximum time taken for any of our algorithms was 5 minutes during hyperparameter tuning.
+This is not too much time so there is no need for commenting any parts.

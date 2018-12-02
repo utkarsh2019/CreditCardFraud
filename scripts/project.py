@@ -118,7 +118,7 @@ def test_K_Folds_CV(X, y, k, algorithmType, C, gamma=None):
                 k,
                 X,
                 y,
-                type="dual",
+                algorithmType,
                 kernel="rbf",
                 gamma=gamma,
                 C=C)
@@ -127,7 +127,7 @@ def test_K_Folds_CV(X, y, k, algorithmType, C, gamma=None):
                 k,
                 X,
                 y,
-                type="primal",
+                algorithmType,
                 C=C)
     else:
         print("Wrong SVM type")
