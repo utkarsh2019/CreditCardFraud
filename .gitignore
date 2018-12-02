@@ -1,3 +1,4 @@
+# this file is too large to put on Github
 creditcard.csv
 
 .vscode
@@ -6,3 +7,6 @@ creditcard.csv
 .DS_STORE
 
 fixOnes.py
+
+# temp file for running quick scripts in a console (by copying)
+/scripts/temp.py
