@@ -91,6 +91,25 @@ def test_non_linear_svm(X, y, C, gamma, folds):
     print("stdev:", np.std(z))
 
 
+def training_testing(X, y, testSetX, testSetY, algorithmType, C, gamma=None):
+    y = y.reshape((len(y), ))
+    # learn
+    if(algorithmType == "primal"):
+        clf = svm.LinearSVC(C=C, dual=False)
+    elif algorithmType == "dual":
+        clf = svm.SVC(kernel="rbf", gamma=gamma, C=C)
+    clf.fit(X, y)
+
+    # check performance on testing set
+    tempY = testSetY.reshape( (len(testSetY), ) )
+    error = 1 - clf.score(testSetX, tempY)
+    print("error:", error)
+    yPred = clf.predict(testSetX)
+    data = kfoldcv.perf_measure(tempY, yPred)
+    print("performance:")
+    print("TP:", data[0], "FP:", data[1], "TN:", data[2], "FP:", data[3])
+
+
 def test_K_Folds_CV(X, y, k, algorithmType, C, gamma=None):
     n = X.shape[0]
     y = y.reshape(n,)
