@@ -1,0 +1,15 @@
+We require the following additional libraries
+1. matplotlib
+2. sklearn
+
+Basic execution flow is as follows:
+Start Python in interactive mode (IPython or terminal). We tested with a terminal, 
+running python command from the folder /scripts/
+
+then do the following in the python console
+import project
+import getData
+X, y = getData(<filename>)
+
+# use high level functions in the project.py file (project module)
+

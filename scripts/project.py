@@ -38,12 +38,12 @@ def makePCAGraph(X, y):
     # projSamples, the projected samples, are now in n x 2 matrix with their
     # projection values for each vector in each row's two columns
 
-    # TODO: check if this labels match usage in final report
     myPlotHelp.plot2DData(projSamples, y,
                           {-1: "fraudulent",
                            1: "non-fraudulent"})
     plt.xlabel("PCA vector 1 projection")
     plt.ylabel("PCA vector 2 projection")
+    plt.show()
 
 
 def test_linear_svm(X, y, C, folds):
@@ -116,14 +116,23 @@ def test_K_Folds_CV(X, y, k, algorithmType, C, gamma=None):
     print("Error: ", (z.mean()))
 
 
-def calc_stats(type, X,y, C, gamma=None):
+def calc_stats(X, y, algorithmType, C, gamma=None):
+    """
+    This function is for obtaining different statistics related to accuracy
+
+    The TP, TN, etc are printed
+    """
+
+    n, d = X.shape
+    y = y.reshape((n, ))
     # learn
-    clf = None
-    if(type == "primal"):
-        clf = svm.LinearSVC(C=C,dual=False)
-    else:
-        clf = svm.SVC(kernel="rbf",gamma=gamma,C=C)
+    if(algorithmType == "primal"):
+        clf = svm.LinearSVC(C=C, dual=False)
+    elif algorithmType == "dual":
+        clf = svm.SVC(kernel="rbf", gamma=gamma, C=C)
     clf.fit(X, y)
+
+    # predict
     yhat = clf.predict(X)
 
     # perf_measure function
